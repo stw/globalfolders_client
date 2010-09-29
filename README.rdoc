@@ -1,0 +1,84 @@
+=GlobalFolders.com Ruby Client
+
+This gem is a simple globalfolders.com interface using active resource and httpclient.
+
+==Usage
+
+config.yml:
+
+  host: https://www.globalfolders.com (optional)
+  username: <email address>
+  password: <password>
+
+require 'globalfolders_client'
+
+Authentication:
+
+  GlobalFolders::Client.load("path to config.yml")
+
+User Interaction:
+
+  # find a user
+  user = GlobalfoldersClient::User.find(1)
+
+  # update a user
+  user = GlobalfoldersClient::User.find(1)
+  user.first_name = "Steve"
+  user.save
+  
+Folder Interaction:
+
+  # find all folders in an account (you must have access to the account)
+  folders = GlobalfoldersClient::Folder.find(:all, :params => { :folder => { :account_id => 1 }})
+  
+  # find a folder
+  folder = GlobalfoldersClient::Folder.find(1)
+  
+  # update folder
+  folder = GlobalfoldersClient::Folder.find(1)
+  folder.name = "WalkerTek Update"
+  folder.save
+  
+  # create a folder
+  folder = GlobalfoldersClient::Folder.create(:account_id => 1, :name => "API Folder", :parent_id => <some folder id>)
+  
+  # remove a folder
+  folder = GlobalfoldersClient::Folder.find(1)
+  folder.destroy
+  
+Document Interaction:
+
+  # find a document
+  document = GlobalfoldersClient::Document.find(7)
+  
+  # list documents in a folder
+  docs = GlobalfoldersClient::Document.find(:all, :params => { :document => { :folder_id => 1 }})
+  
+  # update document
+  document = GlobalfoldersClient::Document.find(7)
+  document.title = "WalkerTek Update"
+  document.save
+  
+  # create a document
+  # we must have the users API key to upload a document
+  user = GlobalfoldersClient::User.find(1)
+  api_key = user.api_key
+  file = File.open(File.join(File.dirname(__FILE__), "upload_test.txt"))
+  
+  doc = GlobalfoldersClient::Document.create(
+    :api_key => api_key, 
+    :file => file, 
+    :folder_id => 1, 
+    :file_name => "upload_test.txt", 
+    :title => "API Test", 
+    :description => "Test Description", 
+    :keywords => "Test Keywords")
+  doc.save
+  
+  # remove a document
+  document = GlobalfoldersClient::Document.find(7)
+  document.destroy
+  
+==Credit
+
+The BlackBoxWeb.com Team
