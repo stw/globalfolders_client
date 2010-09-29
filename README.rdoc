@@ -14,7 +14,7 @@ require 'globalfolders_client'
 
 Authentication:
 
-  GlobalFolders::Client.load("path to config.yml")
+  GlobalFolders::Client.load_config("path to config.yml")
 
 User Interaction:
 

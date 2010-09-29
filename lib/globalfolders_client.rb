@@ -9,13 +9,22 @@ module GlobalfoldersClient
   class Client < ActiveResource::Base
     self.proxy    = ''
     self.timeout  = 5
-    # self.format   = :json
+    # self.format = :json
     
-    def load(filename)
-      config = YAML.parse(filename)
-      GlobalFolders::Client.site     = config[:host] || "https://www.globalfolders.com"
-      GlobalFolders::Client.user     = config[:username]
-      GlobalFolders::Client.password = config[:password]
+    def self.load_config(filename)
+      begin 
+        unless File.exists?(filename)
+          raise "Config file #{filename} not found."
+        end
+        
+        config = YAML.load_file(filename)
+      
+        self.site     = config["host"] || "https://www.globalfolders.com"
+        self.user     = config["username"]
+        self.password = config["password"]
+      rescue Exception => e
+        $stderr.puts "Error: #{e.message}"
+      end
     end
   end 
 

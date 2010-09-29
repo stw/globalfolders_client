@@ -10,5 +10,5 @@ Rspec.configure do |config|
 end
 
 def setup_client
-  GlobalfoldersClient::Client.load(File.join(File.dirname(__FILE__), "config.yml"))
+  GlobalfoldersClient::Client.load_config(File.join(File.dirname(__FILE__), "config.yml"))
 end

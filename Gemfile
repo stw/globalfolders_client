@@ -6,7 +6,7 @@ gem "globalfolders_client", :path => File.expand_path("..", __FILE__)
 
 # These are development dependencies
 gem "rake"
-gem "rspec", "2.0.0.beta.19"
+gem "rspec", "2.0.0.beta.22"
 gem 'tzinfo'
 
 gem 'activeresource'
