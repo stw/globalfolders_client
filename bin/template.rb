@@ -4,13 +4,14 @@ $:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 require "globalfolders_client"
 
 begin 
-  GlobalfoldersClient::Client.load(File.join(File.dirname(__FILE__), "config.yml"))
+  GlobalfoldersClient::Client.load_config( File.join( File.dirname(__FILE__), "config.yml") )
   
   doc = GlobalfoldersClient::Document.find(1)
   puts doc.inspect
 
+  user = GlobalfoldersClient::User.find(1)
   puts
-  puts doc.current_url
+  puts doc.url(user)
   
 rescue Exception => e
   puts "Error: #{e.message}"
