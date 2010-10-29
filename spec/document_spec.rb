@@ -18,6 +18,12 @@ describe "Document Interaction" do
     docs.count.should > 0
   end
   
+  # updated since
+  it "shows all files updated since date" do
+    documents = GlobalfoldersClient::Document.find(:all, :from => :updated_since, :params => { :date => '2010-04-10 12:00:00 -4:00' })
+    documents.count.should > 0
+  end
+  
   # update
   it "allows the updating of a document" do
     document = GlobalfoldersClient::Document.find(7)
